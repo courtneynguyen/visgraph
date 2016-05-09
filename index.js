@@ -76,20 +76,37 @@ Graph.prototype.plotPoint = function(x, y){
   canvasUtils.drawCircle(actualVertex.x, actualVertex.y, 5, '#000');
 }
 
+Graph.prototype.plotAngle = function(angle, origin){
+  var originVertex = this.translateCoordinates(origin);
+  canvasUtils.drawCircle(originVertex.x, originVertex.y, 5, '#f00');
+  var yRatio = (Math.sin(angle * deg) * this.max);
+  var xRatio = (Math.cos(angle * deg ) * this.max);
+  var endVertex = this.translateCoordinates({x: xRatio,y: yRatio});
+  canvasUtils.drawCircle(endVertex.x, endVertex.y, 5, '#000');
+}
+
+Graph.prototype.plotDistance = function(x1, y1, x2, y2){
+  var firstVertex = this.translateCoordinates({x: x1, y: y1});
+  var secondVertex = this.translateCoordinates({x: x2, y: y2});
+  canvasUtils.drawCircle(firstVertex.x, firstVertex.y, 5, '#f00');
+  canvasUtils.drawCircle(secondVertex.x, secondVertex.y, 5, '#000');
+  canvasUtils.drawLine(firstVertex.x, firstVertex.y, secondVertex.x, secondVertex.y, 'purple');
+}
+
 Graph.prototype.translateCoordinates = function(vert){
   var center = this.margin + (this.spaceRatio * (this.totalRows / 2));
-  var xToSpaceRatio = (vert.x / this.increment);
-  var yToSpaceRatio = (vert.y / this.increment);
+  var xToIncrementRatio = (vert.x / this.increment);
+  var yToIncrementRatio = (vert.y / this.increment);
 
   if(vert.y > 0){
-    yToSpaceRatio *= -1;
+    yToIncrementRatio *= -1;
   }
   else {
-    yToSpaceRatio *= -1;
+    yToIncrementRatio *= -1;
   }
   return {
-    x: center + (xToSpaceRatio * (this.spaceRatio * this.incrementsUntilLabel)),
-    y: center + (yToSpaceRatio * (this.spaceRatio * this.incrementsUntilLabel))
+    x: center + (xToIncrementRatio * (this.spaceRatio * this.incrementsUntilLabel)),
+    y: center + (yToIncrementRatio * (this.spaceRatio * this.incrementsUntilLabel))
   }
 }
 
