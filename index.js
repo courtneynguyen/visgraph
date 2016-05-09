@@ -72,27 +72,24 @@ Graph.prototype.createGrid = function(){
 }
 
 Graph.prototype.plotPoint = function(x, y){
-  var xPos = (this.spaceRatio * x);
-  var yPos = (this.spaceRatio * y);
-  var actualVertex = this.translateCoordinates({x: xPos, y: yPos});
+  var actualVertex = this.translateCoordinates({x: x, y: y});
   canvasUtils.drawCircle(actualVertex.x, actualVertex.y, 5, '#000');
 }
 
 Graph.prototype.translateCoordinates = function(vert){
   var center = this.margin + (this.spaceRatio * (this.totalRows / 2));
-  var toReturn = {
-    x:
-  };
+  var xToSpaceRatio = (vert.x / this.increment);
+  var yToSpaceRatio = (vert.y / this.increment);
 
   if(vert.y > 0){
-    vert.y *= -1;
+    yToSpaceRatio *= -1;
   }
   else {
-    vert.y *= -1;
+    yToSpaceRatio *= -1;
   }
   return {
-    x: center + vert.x,
-    y: center + vert.y
+    x: center + (xToSpaceRatio * (this.spaceRatio * this.incrementsUntilLabel)),
+    y: center + (yToSpaceRatio * (this.spaceRatio * this.incrementsUntilLabel))
   }
 }
 
