@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Visual graph</title>
+    <style>
+  		* {
+  			margin: 0;
+  			padding: 0;
+  		}
+
+  		html, body {
+  			height: 100%;
+  		}
+
+  		body {
+  			background-color: gray;
+  		}
+
+  		#canvas {
+  			position: absolute;
+  			top: 0;
+  			left: 0;
+  			right: 0;
+  			bottom: 0;
+  			margin: auto;
+  			box-shadow: 0 0 4px black;
+  			background-color: white;
+  			/*background-image: url("./transparent.png");*/
+  		}
+  	</style>
+  </head>
+  <body>
+    <input id="increment" type="number" />
+    <canvas id="canvas" height="800" width="800"></canvas>
+    <script type="text/javascript" src="./index.js">
+    </script>
+  </body>
+</html>
