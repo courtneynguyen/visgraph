@@ -1,39 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Visual graph</title>
-    <style>
-  		* {
-  			margin: 0;
-  			padding: 0;
-  		}
+<head>
+  <meta charset="utf-8">
+  <title>Visual graph</title>
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
 
-  		html, body {
-  			height: 100%;
-  		}
+  html, body {
+    height: 100%;
+  }
 
-  		body {
-  			background-color: gray;
-  		}
+  body {
+    background-color: gray;
+  }
 
-  		#canvas {
-  			position: absolute;
-  			top: 0;
-  			left: 0;
-  			right: 0;
-  			bottom: 0;
-  			margin: auto;
-  			box-shadow: 0 0 4px black;
-  			background-color: white;
-  			/*background-image: url("./transparent.png");*/
-  		}
-  	</style>
-  </head>
-  <body>
-    <input id="increment" type="number" />
-    <canvas id="canvas" height="800" width="800"></canvas>
-    <script type="text/javascript" src="./index.js">
-    </script>
-  </body>
+  #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    box-shadow: 0 0 4px black;
+    background-color: white;
+    /*background-image: url("./transparent.png");*/
+  }
+  input {
+    display: inline-block;
+    font-size: 20px;
+  }
+  .wrapper {
+    width: 800px;
+    margin: 0 auto;
+  }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <input id="increment" type="number" placeholder="increments" />
+    <input id="min" type="number" placeHolder="min range (pos)"/>
+    <input id="max" type="number" placeholder="max range (pos)" />
+    <input id="update" type="submit" />
+  </div>
+  <canvas id="canvas" height="800" width="800"></canvas>
+  <script type="text/javascript" src="./index.js">
+  </script>
+  <script>
+  var piGraph = new Graph({
+    increment: 5,
+    min: 0,
+    max: 25,
+    margin:60
+  });
+  document.getElementById("update").addEventListener('click', function(){
+    var increment = document.getElementById('increment').value;
+    var min = document.getElementById('min').value;
+    var max = document.getElementById('max').value;
+    piGraph.increment = increment;
+    piGraph.min = min;
+    piGraph.max = max;
+    piGraph.updateGraph();
+  });
+  document.getElementById("rows");
+  document.getElementById("rangemin");
+  document.getElementById("rangemax");
+  </script>
+</body>
 </html>
