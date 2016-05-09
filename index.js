@@ -1,5 +1,8 @@
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
+var pi = Math.PI;
+var tau = pi * 2;
+var deg = tau / 360;
 
 var canvasUtils = {
   drawLine: function(x1, y1, x2, y2, color, lineWidth){
@@ -16,6 +19,17 @@ var canvasUtils = {
     window.context.fillStyle = color || '#f00';
     window.context.font = size + 'px sans-serif';
     window.context.fillText(text, x, y);
+  },
+  drawCircle: function(x, y, radius, color, lineWidth){
+    var context = window.context;
+    context.save();
+    context.translate(x, y);
+    context.fillStyle = color || '#f00';
+    context.lineWidth = lineWidth || 1;
+    context.beginPath();
+    context.arc(0, 0, radius, 0, tau);
+    context.fill();
+    context.restore();
   }
 }
 
@@ -55,6 +69,31 @@ Graph.prototype.updateGraph = function(){
 Graph.prototype.createGrid = function(){
   this.drawLines(true);
   this.drawLines(false);
+}
+
+Graph.prototype.plotPoint = function(x, y){
+  var xPos = (this.spaceRatio * x);
+  var yPos = (this.spaceRatio * y);
+  var actualVertex = this.translateCoordinates({x: xPos, y: yPos});
+  canvasUtils.drawCircle(actualVertex.x, actualVertex.y, 5, '#000');
+}
+
+Graph.prototype.translateCoordinates = function(vert){
+  var center = this.margin + (this.spaceRatio * (this.totalRows / 2));
+  var toReturn = {
+    x:
+  };
+
+  if(vert.y > 0){
+    vert.y *= -1;
+  }
+  else {
+    vert.y *= -1;
+  }
+  return {
+    x: center + vert.x,
+    y: center + vert.y
+  }
 }
 
 Graph.prototype.drawLines = function(isHorizontal){
